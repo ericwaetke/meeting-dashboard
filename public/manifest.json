@@ -1,0 +1,9 @@
+{
+	"manifest_version": 2,
+	"name": "Meeting Dashboard",
+	"version": "1.0",
+	"description": "A clean dashboard to see all your upcoming meetings",
+	"chrome_url_overrides" : {
+		"newtab": "index.html"
+	}
+}

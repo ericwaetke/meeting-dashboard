@@ -1,24 +1,38 @@
+import dayjs from "dayjs";
 import React from "react";
 
 export interface MeetingProps {
 	meetingData: {
-		name: String,
-		time: String,
-		date: String,
-		link: String
+		name: string,
+		start: string,
+		end: string,
+		date: string,
+		link: string
 	}
 }
  
 const Meeting: React.FunctionComponent<MeetingProps> = (props) => {
-	const name = "h"
-	const time = "hg"
 
+	const duration = dayjs(`${dayjs().format("YYYY-MM-DD ")} ${props.meetingData.end}`).diff(dayjs(`${dayjs().format("YYYY-MM-DD ")} ${props.meetingData.start}`), "minute")
 
+	const progress = Math.abs(dayjs(`${dayjs().format("YYYY-MM-DD ")} ${props.meetingData.start}`).diff(dayjs(), "minute")) / duration * 100
+
+	const delta = dayjs().diff(dayjs(`${dayjs().format("YYYY-MM-DD ")} ${props.meetingData.start}`), "minute")
+	
+	let indicator;
+	if (delta > 0) {
+		// Currently Running
+		indicator = <span className="progress" style={{width: `${progress}%`}}></span>
+	} else{
+		// Not running
+		indicator = <span className="progress">Meeting in: {Math.abs(delta)} min</span>
+	}
 
 	return ( 
-		<a href="#" target="_blank" className="meeting">
+		<a href={props.meetingData.link} target="_blank" className="meeting running">
+			{indicator}
 			<h2>{props.meetingData.name}</h2>
-			<p>{props.meetingData.time}</p>
+			<p>{props.meetingData.start} - {props.meetingData.end}</p>
 			{/* <h2>It is {new Date().toLocaleTimeString()}.</h2> */}
 		</a>
 	 );

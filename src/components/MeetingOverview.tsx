@@ -11,6 +11,14 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 
 	const meetings = [
 		// meetings go in here
+		// example meeting
+		{
+			name: "Meeting",
+			date: "Monday",
+			start: "12:00",
+			end: "13:00",
+			link: "https://..."
+		}
 	]
 
 	return ( 
