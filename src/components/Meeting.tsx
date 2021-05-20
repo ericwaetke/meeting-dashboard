@@ -22,10 +22,10 @@ const Meeting: React.FunctionComponent<MeetingProps> = (props) => {
 	let indicator;
 	if (delta > 0) {
 		// Currently Running
-		indicator = <span className="progress" style={{width: `${progress}%`}}></span>
+		indicator = <span className="progress running" style={{width: `${progress}%`}}></span>
 	} else{
 		// Not running
-		indicator = <span className="progress">Meeting in: {Math.abs(delta)} min</span>
+		indicator = <span className="progress upcoming">Meeting in: <span className="time">{Math.abs(delta)} min</span></span>
 	}
 
 	return ( 
