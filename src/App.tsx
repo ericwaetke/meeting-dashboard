@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import MeetingOverview from "./components/MeetingOverview"
-import './App.css'
+import './App.scss'
 
 function App() {
 

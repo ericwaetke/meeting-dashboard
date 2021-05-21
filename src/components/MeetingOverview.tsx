@@ -36,10 +36,12 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 		])
 	}
 
+	const [visibility, setVisibility] = useState(false)
+
 	return ( 
 		<div className="meetingOverview">
 			<h1>Upcoming Meetings</h1>
-			<button className="round">
+			<button className="round" onClick={() => {setVisibility(!visibility)}}>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 					<line x1="9" y1="6" x2="20" y2="6" />
@@ -50,7 +52,7 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 					<line x1="5" y1="18" x2="5" y2="18.01" />
 				</svg>
 			</button>
-			<MeetingConfig addMeeting={addMeeting} meetings={meetings} />
+			<MeetingConfig addMeeting={addMeeting} meetings={meetings} visibility={visibility}/>
 			{
 				// Todo: Time Sorting
 				meetings.map((meeting) => {
