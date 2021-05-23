@@ -1,50 +1,137 @@
 :root{
-	--background: #35363a;
-	--card: #232323;
-	--foreground: #fff;
-	--accent: #b4ec2d;
+	// --background: #35363a;
+	// --card: #232323;
+	// --card-layer: #151515;
+	// --foreground: #fff;
+	// --accent: #b4ec2d;
+	--background: #EBE7F4;
+	--card: #E4DDF9;
+	--card-layer-1: #CBC7F4;
+	--card-layer-1-shade: #B7B4DC;
+	--card-layer-1-shade-text: #24242B;
+	--card-layer-2: #6E5AFF;
+	--accent: #3BE679;
+	--accent-text: #1C6F3A;
+	--text-1: #000;
+	--text-2: #fff;
+	--radius: 20px;
 }
 
 body{
 		background-color: var(--background);
-		margin: 0;
+}
+* {
+	margin: 0;
 }
 
 .app {
 	font-family: Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	color: var(--foreground);
 	margin-top: 60px;
+	color: var(--text-1);
 }
 
 .card{
 	background: var(--card);
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
 	max-width: 100%;
-	padding: 3em;
-	gap: 1.5em;
-	border-radius: 20px;
-	color: var(--foreground);
+	border-radius: var(--radius);
+	color: var(--text-1);
 	text-decoration: none;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.07), 
-					0 2px 4px rgba(0,0,0,0.07), 
-					0 4px 8px rgba(0,0,0,0.07), 
-					0 8px 16px rgba(0,0,0,0.07),
-					0 16px 32px rgba(0,0,0,0.07), 
-					0 32px 64px rgba(0,0,0,0.07);
+	// box-shadow: 0 1px 2px rgba(0,0,0,0.07), 
+	// 				0 2px 4px rgba(0,0,0,0.07), 
+	// 				0 4px 8px rgba(0,0,0,0.07), 
+	// 				0 8px 16px rgba(0,0,0,0.07),
+	// 				0 16px 32px rgba(0,0,0,0.07), 
+	// 				0 32px 64px rgba(0,0,0,0.07);
 	position: relative;
 	overflow: hidden;
+
+	.information{
+		background: var(--card-layer-1);
+		padding: 3em 2em 3.5em 2em;
+		border-radius: var(--radius);
+
+		.host{
+			font-weight: 800;
+			font-size: 10pt;
+			color: var(--card-layer-1-shade-text);
+		}
+
+		h2{
+			// font-weight: 800;
+			// font-size: 24pt;
+		}
+
+		.time{
+			position: absolute;
+			top: 16px;
+			right: 16px;
+			background: var(--card-layer-1-shade);
+			color: var(--card-layer-1-shade-text);
+			font-weight: 800;
+			font-size: 9pt;
+			padding: 8px;
+			border-radius: 7px;
+		}
+	}
+
+	.links{
+		display: flex;
+		padding: 16px;
+
+		* {
+			text-decoration: none;
+			color: var(--text-1);
+			font-weight: 600;
+		}
+
+		.meeting{
+			margin-left: auto;
+			background: var(--accent);
+			color: var(--accent-text);
+			padding: 1em 2em;
+			border-radius: 12px;
+		}
+	}
 }
 
+
 .meetingConfig{
+	h2{
+		margin: 0;
+	}
 	&.hidden {
 		display: none;
 	}
 	&.visible {
 		display: inherit;
+	}
+
+	.addNewMeeting{
+		display: flex;
+		gap: 16px;
+		max-width: 100%;
+		flex-wrap: wrap;
+
+		.inputGroup{
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+	
+			label {
+				font-size: 9pt;
+				font-weight: 800;
+			}
+	
+			input, select {
+				background: var(--card-layer);
+				color: var(--foreground);
+				border: 0;
+				padding: 8px;
+				border-radius: 9px;
+			}
+		}
 	}
 }
 
@@ -52,8 +139,14 @@ body{
 	display: flex;
 	flex-direction: column;
 	gap: 1em;
-	width: 30%;
+	width: 80%;
 	margin: 0 auto;
+
+	.meetingGrid{
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1em;
+	}
 }
 
 button.round{
@@ -85,7 +178,7 @@ a.meeting{
 			background: var(--accent);
 			top: 0;
 			left: 0;
-			transition: width 1s ease;
+			transition: width 5s linear;
 		}
 	}
 

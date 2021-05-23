@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import React, {useState} from "react";
 import Meeting from "./Meeting"
-import MeetingConfig from "./MeetingConfig"
+import MeetingConfig from "./MeetingConfig/MeetingConfig"
 
 export interface MeetingOverviewProps {
 	
@@ -15,6 +15,7 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 		// example meeting
 		{
 			name: "Meeting",
+			host: "Meeting Host",
 			date: "Monday",
 			start: "12:00",
 			end: "13:00",
@@ -22,12 +23,13 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 		}
 	])
 
-	const addMeeting = (name: string, date: string, start: string, end: string, link: string) => {
+	const addMeeting = (name: string, host: string, date: string, start: string, end: string, link: string) => {
 		event?.preventDefault()
 		setMeetings([
 			...meetings, 
 			{
 				name,
+				host,
 				date,
 				start,
 				end,
@@ -40,7 +42,7 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 
 	return ( 
 		<div className="meetingOverview">
-			<h1>Upcoming Meetings</h1>
+			<h1>Meetings</h1>
 			<button className="round" onClick={() => {setVisibility(!visibility)}}>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -53,14 +55,18 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 				</svg>
 			</button>
 			<MeetingConfig addMeeting={addMeeting} meetings={meetings} visibility={visibility}/>
-			{
-				// Todo: Time Sorting
-				meetings.map((meeting) => {
-					if (meeting.date == currentWeekday) {
-						return (<Meeting meetingData={meeting} />)
-					}
-				})
-			}
+
+			<div className="meetingGrid">
+				{
+					// Todo: Time Sorting
+					meetings.map((meeting) => {
+						if (meeting.date == currentWeekday) {
+							return (<Meeting meetingData={meeting} />)
+						}
+					})
+				}
+			</div>
+
 		</div>
 	 );
 }
