@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&display=swap');
+
 :root{
 	// --background: #35363a;
 	// --card: #232323;
@@ -10,6 +12,8 @@
 	--card-layer-1-shade: #B7B4DC;
 	--card-layer-1-shade-text: #24242B;
 	--card-layer-2: #6E5AFF;
+	--card-layer-2-shade: #6453E9;
+	--card-layer-2-shade-text: #C4BDFF;
 	--accent: #3BE679;
 	--accent-text: #1C6F3A;
 	--text-1: #000;
@@ -25,7 +29,7 @@ body{
 }
 
 .app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
+	font-family: 'IBM Plex Sans', Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	margin-top: 60px;
@@ -51,6 +55,41 @@ body{
 		background: var(--card-layer-1);
 		padding: 3em 2em 3.5em 2em;
 		border-radius: var(--radius);
+
+		&.running{
+			color: var(--text-2);
+			background: var(--card-layer-2);
+
+			.host{
+				color: var(--card-layer-2-shade-text);
+			}
+			.time{
+				background: var(--card-layer-2-shade);
+				color: var(--card-layer-2-shade-text);
+			}
+		}
+
+		span.progress{
+			&.upcoming{
+				text-transform: uppercase;
+				text-align: center;
+				width: 100%;
+				font-weight: 800;
+				.time{
+					color: var(--accent);
+				}
+			}
+			&.running{
+				position: absolute;
+				height: 8px;
+				background: #7E6DFF;
+				border-radius: 4px;
+				top: 0;
+				left: 32px;
+				right: 32px;
+				transition: width 5s linear;
+			}
+		}
 
 		.host{
 			font-weight: 800;
@@ -78,19 +117,20 @@ body{
 
 	.links{
 		display: flex;
-		padding: 16px;
+		padding: 16px 16px 16px 32px;
+		align-items: center;
 
-		* {
+		a {
 			text-decoration: none;
 			color: var(--text-1);
-			font-weight: 600;
+			font-weight: 700;
 		}
 
 		.meeting{
 			margin-left: auto;
 			background: var(--accent);
 			color: var(--accent-text);
-			padding: 1em 2em;
+			padding: .8em 2em 1em 2em;
 			border-radius: 12px;
 		}
 	}
@@ -159,30 +199,4 @@ button.round{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-a.meeting{
-	span.progress{
-		&.upcoming{
-			text-transform: uppercase;
-			text-align: center;
-			width: 100%;
-			font-weight: 800;
-			.time{
-				color: var(--accent);
-			}
-		}
-		&.running{
-			position: absolute;
-			height: 16px;
-			background: var(--accent);
-			top: 0;
-			left: 0;
-			transition: width 5s linear;
-		}
-	}
-
-	h2, p {
-		margin: 0;
-	}
 }

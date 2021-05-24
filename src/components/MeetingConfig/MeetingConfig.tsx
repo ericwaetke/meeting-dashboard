@@ -18,7 +18,7 @@ const MeetingConfig: React.SFC<MeetingConfigProps> = ({meetings, addMeeting, vis
 	
 		const _debugTime = `${currentHour}:${parseInt(currentMinute) + 1}`
 
-		addMeeting("Debug Meeting", "Eric Wätke", currentWeekday, `${currentHour}:${currentMinute}`, `${_debugTime}`, "https://github.com/ericwaetke/meeting-dashboard")
+		addMeeting("Debug Meeting", "Eric Wätke", currentWeekday, `${currentHour}:${currentMinute}`, `${_debugTime}`, {name: "Zoom", link: "https://github.com/ericwaetke/meeting-dashboard"}, [{name: "GitHub", link: "https://github.com/ericwaetke/meeting-dashboard"}])
 	}
 
 	const {getCollapseProps, getToggleProps} = useCollapse({isExpanded: visibility})

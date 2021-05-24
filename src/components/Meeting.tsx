@@ -8,7 +8,8 @@ export interface MeetingProps {
 		start: string,
 		end: string,
 		date: string,
-		link: string
+		destination: {name: string, link: string},
+		links: Array<{name: string, link: string}>
 	}
 }
  
@@ -35,17 +36,20 @@ const Meeting: React.FunctionComponent<MeetingProps> = (props) => {
 	let indicator;
 	if (delta >= 0) {
 		// Currently Running
-		indicator = <span className="progress running" style={{width: `${progress}%`}}></span>
-	} else{
-		// Not running
-		indicator = <span className="progress upcoming">Meeting in: <span className="time">{Math.abs(delta)} min</span></span>
+		indicator = <span className="progress running" style={{width: `calc(${progress.toPrecision(2)}% - 64px)`}}></span>
+	} else if (delta > duration) {
+		indicator = <span>Meeting over</span>
+	} else {
+		// Not running yet
+		// indicator = <span className="progress upcoming">Meeting in: <span className="time">{Math.abs(delta)} min</span></span>
 	}
 
 	// Handling the update mechanics of the meeting UI
 	useEffect(() => {
 		window.setTimeout(() => {
 			// Setting Progress
-			setProgress(timeToPercentage(progress + (progressInterval/1000/60), duration))
+			const newProgress = timeToPercentage(progress + (progressInterval/1000/60), duration)
+			setProgress(newProgress > 100 ? 100 : newProgress)
 
 			// Setting Delta
 			setDelta(timeDiff(dayjs(), timeToDate(props.meetingData.start)))
@@ -54,14 +58,21 @@ const Meeting: React.FunctionComponent<MeetingProps> = (props) => {
 
 	return ( 
 		<div className="meeting card running">
-			<div className="information">
+			<div className={`information ${delta >= 0 && delta < duration ? "running" : ""}`}>
 				{indicator}
 				<p className="host">{props.meetingData.host}</p>
 				<h2>{props.meetingData.name}</h2>
-				<p className="time">{props.meetingData.start} - {props.meetingData.end}</p>
+				<p className="time">{props.meetingData.date.slice(0, 3)} {props.meetingData.start} - {props.meetingData.end}</p>
 			</div>
 			<div className="links">
-				<a href={props.meetingData.link} target="_blank" className="meeting">Zoom</a>
+				{
+					(props.meetingData.links || []).map((link) => {
+						return (
+							<a href={link.link} target="_blank">{link.name}</a>
+						)
+					})
+				}
+				<a href={props.meetingData.destination.link} target="_blank" className="meeting">{props.meetingData.destination.name}</a>
 			</div>
 		</div>
 	 );

@@ -19,11 +19,20 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 			date: "Monday",
 			start: "12:00",
 			end: "13:00",
-			link: "https://..."
+			destination: {
+				name: "Zoom",
+				link: "#"
+			},
+			links: [
+				{
+					name: "Miro",
+					link: "#"
+				}
+			]
 		}
 	])
 
-	const addMeeting = (name: string, host: string, date: string, start: string, end: string, link: string) => {
+	const addMeeting = (name: string, host: string, date: string, start: string, end: string, destination: {name: string, link: string}, links: Array<{name: string, link: string}>) => {
 		event?.preventDefault()
 		setMeetings([
 			...meetings, 
@@ -33,7 +42,8 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 				date,
 				start,
 				end,
-				link
+				destination,
+				links
 			}
 		])
 	}
@@ -44,7 +54,7 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 		<div className="meetingOverview">
 			<h1>Meetings</h1>
 			<button className="round" onClick={() => {setVisibility(!visibility)}}>
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 					<line x1="9" y1="6" x2="20" y2="6" />
 					<line x1="9" y1="12" x2="20" y2="12" />
