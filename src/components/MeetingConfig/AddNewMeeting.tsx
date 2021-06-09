@@ -7,15 +7,16 @@ export interface AddNewMeetingProps {
 const AddNewMeeting: React.SFC<AddNewMeetingProps> = ({addMeeting}) => {
 
 	const handleMeetingAddition = () => {
-		addMeeting(name, date, start, end, link)
+		addMeeting(name, host, date, start, end, destination)
 	}
 
 	// Vars for new meeting
 	const [name, setName] = useState("")
+	const [host, setHost] = useState("")
 	const [date, setDate] = useState("")
 	const [start, setStart] = useState("")
 	const [end, setEnd] = useState("")
-	const [link, setLink] = useState("")
+	const [destination, setDestination] = useState("")
 
 	return (
 		<div className="addNewMeeting">
@@ -65,8 +66,8 @@ const AddNewMeeting: React.SFC<AddNewMeetingProps> = ({addMeeting}) => {
 				<input 
 					type="url"
 					id="link" 
-					value={link} 
-					onChange={(e) => {setLink(e.target.value)}}/>
+					value={destination} 
+					onChange={(e) => {setDestination(e.target.value)}}/>
 			</div>
 			<button onClick={handleMeetingAddition}>Add Meeting</button>
 		</div>

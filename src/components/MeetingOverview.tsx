@@ -3,6 +3,22 @@ import React, {useState} from "react";
 import Meeting from "./Meeting"
 import MeetingConfig from "./MeetingConfig/MeetingConfig"
 
+function useStickyState(defaultValue: any, key: string) {
+	const [value, setValue] = React.useState(() => {
+	  const stickyValue = window.localStorage.getItem(key);
+	  return stickyValue !== null
+		? JSON.parse(stickyValue)
+		: defaultValue;
+	});
+
+	React.useEffect(() => {
+	  window.localStorage.setItem(key, JSON.stringify(value));
+	}, [key, value]);
+
+	return [value, setValue];
+  }
+
+
 export interface MeetingOverviewProps {
 	
 }
@@ -10,7 +26,7 @@ export interface MeetingOverviewProps {
 const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 	const currentWeekday = dayjs().format("dddd")
 
-	const [meetings, setMeetings] = useState([
+	const [meetings, setMeetings] = useStickyState([
 		// meetings go in here
 		// example meeting
 		{
@@ -30,7 +46,7 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 				}
 			]
 		}
-	])
+	], "meetingData")
 
 	const addMeeting = (name: string, host: string, date: string, start: string, end: string, destination: {name: string, link: string}, links: Array<{name: string, link: string}>) => {
 		event?.preventDefault()
@@ -46,9 +62,13 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 				links
 			}
 		])
+
+		// localStorage.setItem('meetingData', JSON.stringify(meetings));
 	}
 
 	const [visibility, setVisibility] = useState(false)
+
+	console.log(meetings)
 
 	return ( 
 		<div className="meetingOverview">
@@ -69,7 +89,7 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 			<div className="meetingGrid">
 				{
 					// Todo: Time Sorting
-					meetings.map((meeting) => {
+					meetings.map((meeting: any) => {
 						if (meeting.date == currentWeekday) {
 							return (<Meeting meetingData={meeting} />)
 						}
