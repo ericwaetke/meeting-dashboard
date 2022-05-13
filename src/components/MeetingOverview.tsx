@@ -30,6 +30,7 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 		// meetings go in here
 		// example meeting
 		{
+			id: 0,
 			name: "Meeting",
 			host: "Meeting Host",
 			date: "Monday",
@@ -50,9 +51,17 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 
 	const addMeeting = (name: string, host: string, date: string, start: string, end: string, destination: {name: string, link: string}, links: Array<{name: string, link: string}>) => {
 		event?.preventDefault()
+
+		console.log(meetings.length);
+		
+
+		// Sets last id to 0 if array is empty and to the last one if it isn't
+		const lastId = meetings.length != 0 ? meetings[meetings.length-1].id : 0
+
 		setMeetings([
 			...meetings, 
 			{
+				id: lastId + 1,
 				name,
 				host,
 				date,
@@ -62,8 +71,20 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 				links
 			}
 		])
+	}
 
-		// localStorage.setItem('meetingData', JSON.stringify(meetings));
+	const deleteMeeting = (id: number) => {
+		console.log("meeting deletion initiated");
+
+		const _meetings = [...meetings]
+		const index = _meetings.map((e: any) => e.id).indexOf(id);
+		if (index !== -1) {
+			_meetings.splice(index, 1)
+		}		
+
+		setMeetings([
+			..._meetings
+		])
 	}
 
 	const [visibility, setVisibility] = useState(false)
@@ -84,7 +105,7 @@ const MeetingOverview: React.FunctionComponent<MeetingOverviewProps> = () => {
 					<line x1="5" y1="18" x2="5" y2="18.01" />
 				</svg>
 			</button>
-			<MeetingConfig addMeeting={addMeeting} meetings={meetings} visibility={visibility}/>
+			<MeetingConfig addMeeting={addMeeting} deleteMeeting={deleteMeeting} meetings={meetings} visibility={visibility}/>
 
 			<div className="meetingGrid">
 				{

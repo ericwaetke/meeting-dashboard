@@ -6,10 +6,11 @@ import AddNewMeeting from "./AddNewMeeting"
 export interface MeetingConfigProps {
 	meetings: Array<any>,
 	addMeeting: Function,
+	deleteMeeting: Function,
 	visibility: boolean
 }
  
-const MeetingConfig: React.SFC<MeetingConfigProps> = ({meetings, addMeeting, visibility}) => {
+const MeetingConfig: React.SFC<MeetingConfigProps> = ({meetings, addMeeting, deleteMeeting, visibility}) => {
 	
 	const _addMeeting = () => {
 		const currentWeekday = dayjs().format("dddd")
@@ -39,8 +40,9 @@ const MeetingConfig: React.SFC<MeetingConfigProps> = ({meetings, addMeeting, vis
 				<h2>Meeting Configuration</h2>
 				{
 					meetings.map((meeting) => {
+						console.log(meeting)
 						return(
-							<p>{meeting.name} - {meeting.date} - {meeting.start} - {meeting.end} - {meeting.link}</p>
+							<><p>id: {meeting.id} - {meeting.name} - {meeting.host} - {meeting.date} - {meeting.start} - {meeting.end}</p> <button onClick={() => deleteMeeting(meeting.id)}>Delete</button></>
 						)
 					})
 				}
